@@ -16,7 +16,7 @@ interface Props {
 export default function Login({ onClose }: Props) {
   const client = Apollo.useApolloClient();
   const reduxDispatch = Redux.useDispatch();
-  const [id, setId] = React.useState('');
+  const [id, setId] = React.useState(0);
   const [password, setPassword] = React.useState('');
   const accountRef = React.useRef();
   const { addToast } = WebTool.useToastMsg();
@@ -24,30 +24,32 @@ export default function Login({ onClose }: Props) {
 
   const onLogin = React.useCallback(async () => {
     if (!!id && !!password) {
-      const { data } = await client.query({
-        query: GET_USER,
-        variables: { id },
-      });
+      // const { data } = await client.query({
+      //   query: GET_USER,
+      //   variables: { id },
+      // });
 
-      if (data.user) {
-        reduxDispatch(login(new UserCardModel(data.user)));
-        addToast({
-          body: (
-            <>
-              <BS.Spinner
-                size="sm"
-                animation="grow"
-                variant="success"
-                className="mr-1"
-              />
-              <span>login success</span>
-            </>
-          ),
-        });
-        onClose();
-      }
+      // if (data.user) {
+      // reduxDispatch(login(new UserCardModel(data.user)));
+      console.log(id, typeof id);
+      reduxDispatch(login(new UserCardModel({ id })));
+      addToast({
+        body: (
+          <>
+            <BS.Spinner
+              size="sm"
+              animation="grow"
+              variant="success"
+              className="mr-1"
+            />
+            <span>login success</span>
+          </>
+        ),
+      });
+      onClose();
+      // }
     }
-  }, [addToast, client, id, onClose, password, reduxDispatch]);
+  }, [addToast, id, onClose, password, reduxDispatch]);
 
   return (
     <BS.Form className="m-0">

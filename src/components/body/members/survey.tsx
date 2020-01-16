@@ -39,7 +39,7 @@ export default function Survey() {
         title: '映画上映会',
         targetMemberList: [loginMember],
         description: 'X月X日に参加可否を投票してください。',
-        expireDate: new Date('2019-09-26 14:00:00'),
+        expireDate: new Date('2030-09-26 14:00:00'),
       }),
       new LikeSurveyModel({
         id: 'id3',
